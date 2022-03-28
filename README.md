@@ -26,4 +26,3 @@ Follow the instructions below to do the set up of the app:
 |______views
 |__________controllers
 |__________layouts
-|__________partials
