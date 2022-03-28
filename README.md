@@ -26,3 +26,5 @@ Follow the instructions below to do the set up of the app:
 |______views
 |__________controllers
 |__________layouts
+4) To start the app type in your terminal the next command:
+npm run dev

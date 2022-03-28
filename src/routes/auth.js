@@ -3,15 +3,11 @@ const router = express.Router();
 const passport = require('passport');
 const { isLoggedIn } = require('../lib/auth');
 
-// router.post('/login', passport.authenticate('local.login', {
-//     successRedirect: './layouts/main',
-//     failureRedirect: './views/layouts/login',
-//     failureFlash: true
-// }));
-
-router.get('/login', (req, res) => {
-    res.render('./views/layouts/login');
-});
+router.post('/login', passport.authenticate('local.login', {
+    successRedirect: '/main',
+    failureRedirect: '/login',
+    failureFlash: true
+}));
 
 router.post('/login', (req, res, next) => {
     req.check('username', 'Username is required').notEmpty();
@@ -22,7 +18,7 @@ router.post('/login', (req, res, next) => {
         res.redirect('/login');
     }
     passport.authenticate('local.login', {
-        successRedirect: './layouts/dashboard',
+        successRedirect: './views/layouts/main',
         failureRedirect: '/login',
         failureFlash: true
     })(req, res, next);

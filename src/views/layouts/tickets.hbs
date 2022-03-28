@@ -142,11 +142,11 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="">Subject</label>
                             <div class="col-sm-4">
-                                <input type="subject" name="subject" class="form-control">
+                                <input type="subject" name="subject" class="form-control" required>
                             </div>
                             <label class="col-sm-2 col-form-label">Employee</label>
                             <div class="col-sm-4">
-                                <select placeholder="Select Employees" name="id_employee" id="id_employee" class="form-control">
+                                <select placeholder="Select Employees" required="required" name="id_employee" id="id_employee" class="form-control">
                                     <option value="0" disabled selected>Select an option</option>
                                     {{#if results_dt.table1}}
                                     {{#each results_dt.table1}}
@@ -161,11 +161,11 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="">Date</label>
                             <div class="col-sm-4">
-                                <input type="date" name="date" class="form-control">
+                                <input type="date" name="date" class="form-control" required>
                             </div>
                             <label class="col-sm-2 col-form-label" for="">Status</label>
                             <div class="col-sm-4">
-                                <select placeholder="Select Status" name="id_status" id="id_status" class="form-control">
+                                <select placeholder="Select Status" required="required" name="id_status" id="id_status" class="form-control">
                                     <option value="0" disabled selected>Select an option</option>
                                 {{#each results_dt.table2}}
                                     <option value="{{id}}">
@@ -178,7 +178,7 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="">Description</label>
                             <div class="col-sm-12">
-                                <textarea type="text" name="description" class="form-control"></textarea>
+                                <textarea type="text" required name="description" class="form-control"></textarea>
                             </div>
                         </div>
                         <button type="submit" style="margin-bottom: -12%; margin-left: 77%" class="btn btn-primary">Save</button>

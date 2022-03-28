@@ -140,25 +140,30 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    {{#if message}}
+                    <div class="alert alert-danger">
+                        Password
+                    </div>
+                    {{/if}}
                     <form action="/add" method="post">
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="">First Name</label>
                             <div class="col-sm-4">
-                                <input type="text" name="first_name" class="form-control">
+                                <input type="text" name="first_name" class="form-control" required>
                             </div>
                             <label class="col-sm-2 col-form-label" for="">Last Name</label>
                             <div class="col-sm-4">
-                                <input type="text" name="last_name" class="form-control">
+                                <input type="text" name="last_name" class="form-control" required>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="">Email</label>
                             <div class="col-sm-4">
-                                <input type="email" name="email" class="form-control">
+                                <input type="email" name="email" class="form-control" required>
                             </div>
                             <label class="col-sm-2 col-form-label" for="">Status</label>
                             <div class="col-sm-4">
-                                <select name="id_status" id="id_status" class="form-control">
+                                <select name="id_status" id="id_status" class="form-control" required="required">
                                     <option value="0" disabled selected>Select an option</option>
                                     {{#each results_dt.table2}}
                                     <option value="{{id}}">{{description}}</option>
@@ -169,17 +174,17 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="">Username</label>
                             <div class="col-sm-6">
-                                <input type="text" name="userid" class="form-control">
+                                <input type="text" name="userid" class="form-control" required>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for=" ">Password</label>
                             <div class="col-sm-4 ">
-                                <input type="password" name="passwrd" class="form-control ">
+                                <input type="password" name="passwrd" class="form-control " required>
                             </div>
                             <label class="col-sm-2 col-form-label" for=" ">Confirm Password</label>
                             <div class="col-sm-4 ">
-                                <input type="password" id="confirmPassword" class="form-control ">
+                                <input type="password" name="confirmPassword" class="form-control " required>
                             </div>
                         </div>
                         <button type="submit" style="margin-bottom: -12%; margin-left: 77%" class="btn btn-primary">Save</button>

@@ -4,6 +4,7 @@ const pool = require('../database');
 const async = require('async');
 const { validationResult } = require('express-validator');
 const { passwordValidator, validateConfirmPassword } = require('../lib/validator');
+const bcrypt = require('bcryptjs');
 let current_date = new Date();
 
 router.get('/', (req, res) => {
@@ -45,29 +46,33 @@ router.get('/employees', async(req, res) => {
         if (err) console.log(err);
         res.render('./layouts/employees', { results_dt });
     });
-
 });
 
-router.post('/add', [validateConfirmPassword], async(req, res) => {
+router.post('/add', async(req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
         return res.send('Invalid');
     }
-    console.log(req.body);
-    await pool.query(`INSERT INTO employees VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)`, [req.body.first_name,
-        req.body.last_name,
-        req.body.email,
-        current_date,
-        req.body.id_status,
-        req.body.userid,
-        req.body.passwrd
-    ], (err, fields, rows) => {
-        if (err) {
-            console.log(err)
-        } else {
-            res.render('./layouts/employees');
-        }
-    });
+    if (req.body.password == req.body.confirmPassword) {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        await pool.query(`INSERT INTO employees VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)`, [req.body.first_name,
+            req.body.last_name,
+            req.body.email,
+            current_date,
+            req.body.id_status,
+            req.body.userid,
+            hashedPassword
+        ], (err, fields, rows) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render('./layouts/employees');
+            }
+        });
+    } else {
+        let message = "Password doesn't match. Try Again";
+        res.render('./layouts/employees', { message });
+    }
 });
 
 router.get('/delete/:id', async(req, res) => {
