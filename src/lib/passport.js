@@ -8,5 +8,5 @@ passport.use('local.login', new localStrategy({
     passwordField: 'password',
     passReqToCallback: true
 }, async(req, username, password, done) => {
-    const rows = await pool.query(`Select * from `)
+    const rows = await pool.query(`Select * from employees where `)
 }))

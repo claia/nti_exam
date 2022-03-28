@@ -5,7 +5,6 @@ const async = require('async');
 const { validationResult } = require('express-validator');
 const { passwordValidator, validateConfirmPassword } = require('../lib/validator');
 let current_date = new Date();
-console.log(current_date);
 
 router.get('/', (req, res) => {
     res.render('./layouts/dashboard');
@@ -125,7 +124,7 @@ router.post('/edit/:id', async(req, res) => {
     await pool.query(`
             UPDATE employees
             SET ?
-                WHERE id = ? `, [newEmployee, id], (err, data, fields) => {
+            WHERE id = ? `, [newEmployee, id], (err, data, fields) => {
         if (!err) res.redirect('/employees');
     });
 });
