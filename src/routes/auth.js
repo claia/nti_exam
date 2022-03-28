@@ -1,36 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
 const { isLoggedIn } = require('../lib/auth');
+const pool = require('../database');
 
-router.post('/login', passport.authenticate('local.login', {
-    successRedirect: '/main',
-    failureRedirect: '/login',
-    failureFlash: true
-}));
-
-router.post('/login', (req, res, next) => {
-    req.check('username', 'Username is required').notEmpty();
-    req.check('password', 'Password is required').notEmpty();
-    const errors = req.validationErrors();
-    if (errors.length > 0) {
-        req.flash('message', errors[0].msg);
-        res.redirect('/login');
+router.post('/login', async(req, res, next) => {
+    if (req.body.username != '' &&
+        req.body.username != '') {
+        await pool.query(`SELECT * from employees where userid = ? and passwrd = ?`, [req.body.username, req.body.password], (err, data, fields) => {
+            if (err) throw err;
+            console.log(data)
+            if (data.length > 0) {
+                res.render('./layouts/dashboard');
+            } else {
+                res.render('./layouts/login');
+            }
+        });
+    } else {
+        res.render('./layouts/login');
     }
-    passport.authenticate('local.login', {
-        successRedirect: './views/layouts/main',
-        failureRedirect: '/login',
-        failureFlash: true
-    })(req, res, next);
 });
 
 router.get('/logout', (req, res) => {
     req.logOut();
     res.redirect('/');
-});
-
-router.get('/', isLoggedIn, (req, res) => {
-    res.render('./layouts/dashboard');
 });
 
 module.exports = router;
