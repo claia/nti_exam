@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Ticket System</title>
+    <meta name="description">
+    <meta name="keywords">
+    <!-- Favicons -->
+    <link href="../public/img/NTI_logo.png" rel="icon">
+    <link href="../public/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="../public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../public/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../public/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="../public/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="../public/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="../public/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../public/vendor/simple-datatables/style.css" rel="stylesheet">
+    <link href="../public/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <body>
+    <header id="header" class="header fixed-top d-flex align-items-center">
+        <div class="d-flex align-items-center justify-content-between">
+            <a href="index" class="logo d-flex align-items-center">
+                <img src="../public/img/NTI_logo.png" alt="">
+            </a>
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div>
+
+        <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
+                <li class="nav-item dropdown pe-3">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <span class="d-none d-md-block dropdown-toggle ps-2">Claia</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6>Claia</h6>
+                            <span>Developer</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Sign Out</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+            <li class="nav-item">
+                <a class="nav-link " href="/">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/employees">
+                    <i class="bi bi-person"></i>
+                    <span>Employees</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/tickets">
+                    <i class="bi bi-card-list"></i>
+                    <span>Tickets</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/reports">
+                    <i class="bi bi-files"></i>
+                    <span>Reports</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span>Log out</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1>Tickets</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Tickets</li>
+                </ol>
+            </nav>
+        </div>
+        <!-- End Page Title -->
+
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <button class="btn btn-primary mr-56" data-bs-toggle="modal" data-bs-target="#basicModal">Create Ticket</button>
+                            </h5>
+                            <hr>
+                            <table class="datatable">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Description</th>
+                                    <th>Employee</th>
+                                    <th>Created Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                                <tbody>
+                                    {{#if results_dt.table3}}
+                                    {{#each results_dt.table3}}
+                                    <tr>
+                                        <td>{{id}}</td>
+                                        <td>{{subject}}</td>
+                                        <td>{{name}}</td>
+                                        <td>{{date}}</td>
+                                        <td>{{description}}</td>
+                                        <td><a href="addnote/{{id}}" class="btn btn-sm rounded-pill btn-success">Add Note</a>
+                                            <a href="view/{{id}}" class="btn btn-sm rounded-pill btn-primary" data-bs-toggle="modal" data-bs-target="#viewModal">View</a>
+                                            <a href="editickets/{{id}}" class="btn btn-sm rounded-pill btn-warning">Edit</a>
+                                            <a href="deleteticket/{{id}}" class="btn btn-sm rounded-pill btn-danger">Delete</a></td>
+                                    </tr>
+                                    {{/each}}
+                                    {{/if}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- End #main -->
+
+    {{!-- Inserting --}}
+    <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tickets Form</h5>
+                    <span style="color: green; margin-left: 50%; font-weight: bold">Inserting mode</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/tickets" method="post">
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" for="">Subject</label>
+                            <div class="col-sm-4">
+                                <input type="subject" name="subject" class="form-control">
+                            </div>
+                            <label class="col-sm-2 col-form-label">Employee</label>
+                            <div class="col-sm-4">
+                                <select placeholder="Select Employees" name="id_employee" id="id_employee" class="form-control">
+                                    <option value="0" disabled selected>Select an option</option>
+                                    {{#if results_dt.table1}}
+                                    {{#each results_dt.table1}}
+                                    <option value="{{id}}">
+                                        {{name}}
+                                    </option>
+                                    {{/each}}
+                                    {{/if}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" for="">Date</label>
+                            <div class="col-sm-4">
+                                <input type="date" name="date" class="form-control">
+                            </div>
+                            <label class="col-sm-2 col-form-label" for="">Status</label>
+                            <div class="col-sm-4">
+                                <select placeholder="Select Status" name="id_status" id="id_status" class="form-control">
+                                    <option value="0" disabled selected>Select an option</option>
+                                {{#each results_dt.table2}}
+                                    <option value="{{id}}">
+                                        {{description}}
+                                    </option>
+                                {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" for="">Description</label>
+                            <div class="col-sm-12">
+                                <textarea type="text" name="description" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" style="margin-bottom: -12%; margin-left: 77%" class="btn btn-primary">Save</button>
+                    </form>
+                    <div class="modal-footer ">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{!-- View Tickets --}}
+    {{#if results_dt.table3}}
+    {{#each results_dt.table3}}
+    <div class="modal fade" id="viewModal" tabindex="-1" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 style="font-weight: bold;" class="modal-title">Ticket Information #{{id}}</h5>
+                    <span style="color: blue; margin-left: 50%; font-weight: bold">View mode</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <label style="font-weight: bold" class="col-sm-2 col-form-label">Subject</label>
+                        <div class="col-sm-4">
+                            <label>{{subject}}</label> 
+                        </div>
+                        <label style="font-weight: bold" class="col-sm-2 col-form-label">Employee</label>
+                        <div class="col-sm-4">
+                            <label>{{name}}</label>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label style="font-weight: bold" class="col-sm-2 col-form-label">Date</label>
+                        <div class="col-sm-4">
+                            <label>{{date}}</label>
+                        </div>
+                        <label style="font-weight: bold" class="col-sm-2 col-form-label" for="">Status</label>
+                        <div class="col-sm-4">
+                            <label>{{status}}</label>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label style="font-weight: bold" class="col-sm-2 col-form-label" for="">Description</label>
+                        <div class="col-sm-12">
+                            <textarea type="text" disabled name="description" class="form-control">{{description}}</textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer ">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    {{/if}}        
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer " class="footer ">
+        <div class="copyright ">
+            &copy; Copyright <strong><span>CB</span></strong>. All Rights Reserved
+        </div>
+    </footer>
+    <!-- End Footer -->
+
+    <a href="# " class="back-to-top d-flex align-items-center justify-content-center "><i class="bi bi-arrow-up-short "></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="../public/vendor/apexcharts/apexcharts.min.js "></script>
+    <script src="../public/vendor/bootstrap/js/bootstrap.bundle.min.js "></script>
+    <script src="../public/vendor/chart.js/chart.min.js "></script>
+    <script src="../public/vendor/echarts/echarts.min.js "></script>
+    <script src="../public/vendor/quill/quill.min.js "></script>
+    <script src="../public/vendor/simple-datatables/simple-datatables.js "></script>
+    <script src="../public/vendor/tinymce/tinymce.min.js "></script>
+    <script src="../public/vendor/php-email-form/validate.js "></script>
+
+    <!-- Template Main JS File -->
+    <script src="../public/js/main.js "></script>
+
+</body>
+
+</html>
